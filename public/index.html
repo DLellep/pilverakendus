@@ -6,6 +6,41 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>Sample page</h2>
+    <h1>Send a Message</h1>
+    <form id="messageForm">
+        <input type="text" id="message" placeholder="Type your message here" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        const messageForm = document.getElementById('messageForm');
+        const messageInput = document.getElementById('message');
+        const responseDiv = document.getElementById('response');
+
+        messageForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const message = messageInput.value;
+
+            try {
+                const response = await fetch('/send-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message })
+                });
+
+                if (response.ok) {
+                    responseDiv.textContent = 'Message sent successfully!';
+                } else {
+                    responseDiv.textContent = 'Message sending failed.';
+                }
+            } catch (error) {
+                responseDiv.textContent = 'Error: ' + error.message;
+            }
+        });
+    </script>
 </body>
 </html>

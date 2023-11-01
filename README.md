@@ -13,3 +13,8 @@ npm install
 ```
 cp .env.sample .env
 ```
+
+## Create messages.json
+```
+cp data/messages.json.sample data/messages.json
+```
